@@ -38,7 +38,10 @@ li {
 	background-color: white;
 	line-height: 40px; /*nice thing*/
 	color: #666;
-	overflow-wrap: break-word; 
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
 }
 
 li:nth-child(2n){
@@ -80,6 +83,7 @@ input:focus {
 	text-decoration: line-through;
 }
 
-.fa-plus {
+#toggleInput {
 	float: right;
+	cursor: pointer;
 }
