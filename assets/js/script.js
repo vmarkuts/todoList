@@ -1,9 +1,6 @@
-// myStorage = window.localStorage;
+myStorage = window.localStorage;
 
-// let tasks = {};
-
-// myStorage.setItem('tasks', tasks);
-
+let tasks;
 let colorGray = 'rgb(128, 128, 128)';
 let colorBlack = 'rgb(0, 0, 0)';
 let input = $('input[type="text"]');
@@ -13,23 +10,45 @@ let h1 = $('h1');
 let state = 1;
 let lastLi;
 
-//добавить айтем в локал сторедж
+if (myStorage.length === 0) {
+	tasks = ['Feed the dog','Buy a dog'];
+} else {
+	tasks = JSON.parse(myStorage.getItem('tasks'));
+}
 
-//получить 
+updateStorage();
 
-//удалить
 
-updateLastLi();
 
-updateState();
+generatePage();
+
+function updateStorage() {
+	myStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function generatePage() {
+	let array = JSON.parse(myStorage.getItem('tasks'));
+	for (var i = 0; i<array.length; i++) {
+    	$('ul').prepend('<li><span><i class="fa fa-trash"></i></span>' +  array[i] + '</li>');
+    }
+    updateLastLi();
+	updateState();
+}
 
 $('ul').on('click', 'li', function(){
 	$(this).toggleClass('completed');
 	updateState();
 });
 
+function removeTask (task) {
+	let index = tasks.indexOf(task);
+	tasks.splice(index,1);
+	updateStorage();
+}
+
 $('ul').on('click', 'span', function(event){
 	$(this).parent().fadeOut(250, function() {
+		removeTask($(this));
 		$(this).remove();
 		lastLiCorners();
 	});
@@ -37,15 +56,14 @@ $('ul').on('click', 'span', function(event){
 	event.stopPropagation();
 });
 
-// function saveTodo (item) {
-// 	tasksArray.push(item);
-// 	localStorage.setItem(tasks);
-// 	console.log(localStorage);
-// }
+function saveTodo (item) {
+	tasks.push(item);
+	updateStorage();
+}
 
 function createTodo() {
 	let todoText = $(input).val();
-	// saveTodo(todoText);	
+	saveTodo(todoText);	
 	$('ul').prepend('<li><span><i class="fa fa-trash"></i></span>' + todoText + '</li>');
 	$(input).val('');
 	updateState();
