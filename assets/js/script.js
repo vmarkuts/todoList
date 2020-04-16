@@ -1,3 +1,9 @@
+// myStorage = window.localStorage;
+
+// let tasks = {};
+
+// myStorage.setItem('tasks', tasks);
+
 let colorGray = 'rgb(128, 128, 128)';
 let colorBlack = 'rgb(0, 0, 0)';
 let input = $('input[type="text"]');
@@ -6,6 +12,12 @@ let displayInput = true;
 let h1 = $('h1');
 let state = 1;
 let lastLi;
+
+//добавить айтем в локал сторедж
+
+//получить 
+
+//удалить
 
 updateLastLi();
 
@@ -25,14 +37,24 @@ $('ul').on('click', 'span', function(event){
 	event.stopPropagation();
 });
 
+// function saveTodo (item) {
+// 	tasksArray.push(item);
+// 	localStorage.setItem(tasks);
+// 	console.log(localStorage);
+// }
+
+function createTodo() {
+	let todoText = $(input).val();
+	// saveTodo(todoText);	
+	$('ul').prepend('<li><span><i class="fa fa-trash"></i></span>' + todoText + '</li>');
+	$(input).val('');
+	updateState();
+	lastLiCorners();
+}
 
 input.keypress(function(event){
 	if(event.which === 13) {
-		let todoText = $(this).val();
-		$('ul').append('<li><span><i class="fa fa-trash"></i></span>' + todoText + '</li>');
-		$(this).val('');
-		updateState();
-		lastLiCorners();
+		createTodo();
 	}
 });
 

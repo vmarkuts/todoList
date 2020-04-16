@@ -1,4 +1,5 @@
 body {
+	font-size: 1em;
 	font-family: 'Roboto', sans-serif;
 	background: #76b852;  /* fallback for old browsers */
 	background: #2BC0E4;  /* fallback for old browsers */
@@ -10,16 +11,16 @@ h1 {
 	background-color: steelblue;
 	color: white;
 	margin: 0;
-	padding: 10px 20px;
+	padding: 0.5em 1em;
 	text-transform: uppercase;
-	font-size: 24px;
+	font-size: 2em;
 	font-weight: normal;
 	border-radius: 10px 10px 0 0;
 }
 
 span {
 	background-color: #e74c3c;
-	margin-right: 20px;
+	margin-right: 1em;
 	text-align: center;
 	color: white;
 	width: 0;
@@ -36,13 +37,14 @@ ul {
 }
 
 li {
+	font-size: 1.5em;
 	background-color: white;
-	line-height: 40px; /*nice thing*/
-	color: #666;
-	display: -webkit-box;
-	-webkit-line-clamp: 1;
-	-webkit-box-orient: vertical;
-	overflow: hidden;
+    line-height: 3em;
+    color: #666;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 li:nth-child(2n){
@@ -51,16 +53,16 @@ li:nth-child(2n){
 
 /*selecting span in hovered li*/
 li:hover span {
-	width: 40px;
+	width: 3em;
 	opacity: 1.0;
 }
 
 input {
-	font-size: 18px;
+	font-size: 1.5em;
 	color: steelblue;
 	background-color: #f7f7f7;
 	width: 100%;
-	padding: 13px 13px 13px 20px;
+	padding: 0.8em 0.8em 0.8em 1em;
 	box-sizing: border-box;
 	-moz-box-sizing: border-box; /*it is important*/
 	border: 3px solid rgba(0,0,0,0);
@@ -73,10 +75,10 @@ input:focus {
 }
 
 #container {
-	width: 360px;
-	margin: 100px auto;
+	width: 50%;
+	margin: 10em auto;
 	background-color: #f7f7f7;
-	box-shadow: 0 0 3px rgba(0,0,0, .1);
+	box-shadow: 0 0 1em rgba(0,0,0, .1);
 	border-radius: 10px;
 }
 
