@@ -11,14 +11,19 @@ let state;
 let lastLi;
 
 if (myStorage.length === 0) {
-	tasks = ['Feed the dog','Buy a dog'];
+	tasks = [
+		{
+			task: 'Feed the dog',
+			completed: false
+		}, 
+		{	task: 'Buy a dog',
+			completed: false
+		}];
 	displayInput = true;
 } else {
 	tasks = JSON.parse(myStorage.getItem('tasks'));
 	displayInput = JSON.parse(myStorage.getItem('displayInput'));
 }
-
-
 
 updateStorage();
 
@@ -33,14 +38,29 @@ function generatePage() {
 	renderInput();
 	let array = JSON.parse(myStorage.getItem('tasks'));
 	for (var i = 0; i<array.length; i++) {
-    	$('ul').prepend('<li><span><i class="fa fa-trash"></i></span>' +  array[i] + '</li>');
+    	if (array[i].completed) {
+    		$('ul').prepend('<li class="completed"><span><i class="fa fa-trash"></i></span>' +  array[i].task + '</li>');
+    	} else {
+    		$('ul').prepend('<li><span><i class="fa fa-trash"></i></span>' +  array[i].task + '</li>');
+    	}
     }
     updateLastLi();
 	updateState();
 }
 
 $('ul').on('click', 'li', function(){
+	let currentTodo = $(this).text();
+
+	for (var i = 0; i<tasks.length; i++) {
+	    if (tasks[i].task == currentTodo) {
+	        tasks[i].completed = !tasks[i].completed;
+	        updateStorage();
+	        break;
+	    }
+	}
+
 	$(this).toggleClass('completed');
+	console.log(currentTodo);
 	updateState();
 });
 
@@ -62,7 +82,11 @@ $('ul').on('click', 'span', function(event){
 });
 
 function saveTodo (item) {
-	tasks.push(item);
+	let todoItem = {
+		task: item,
+		completed: false
+	}
+	tasks.push(todoItem);
 	updateStorage();
 }
 
@@ -154,3 +178,4 @@ function updateState() {
 function updateLastLi() {
 	lastLi = $('li').last();
 }
+
