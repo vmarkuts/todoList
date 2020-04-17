@@ -178,4 +178,3 @@ function updateState() {
 function updateLastLi() {
 	lastLi = $('li').last();
 }
-
