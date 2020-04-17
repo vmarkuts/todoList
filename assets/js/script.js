@@ -10,7 +10,21 @@ let h1 = $('h1');
 let state;
 let lastLi;
 
-if (myStorage.length === 0) {
+init();
+
+updateStorage();
+
+generatePage();
+
+function init() {
+	if (myStorage.length === 0) {
+		vipeStorage();
+	} else {
+		parseStorage();
+	}
+}
+
+function vipeStorage() {
 	tasks = [
 		{
 			task: 'Feed the dog',
@@ -18,16 +32,15 @@ if (myStorage.length === 0) {
 		}, 
 		{	task: 'Buy a dog',
 			completed: false
-		}];
+		}
+	];
 	displayInput = true;
-} else {
+}
+
+function parseStorage() {
 	tasks = JSON.parse(myStorage.getItem('tasks'));
 	displayInput = JSON.parse(myStorage.getItem('displayInput'));
 }
-
-updateStorage();
-
-generatePage();
 
 function updateStorage() {
 	myStorage.setItem('tasks', JSON.stringify(tasks));
@@ -50,7 +63,6 @@ function generatePage() {
 
 $('ul').on('click', 'li', function(){
 	let currentTodo = $(this).text();
-
 	for (var i = 0; i<tasks.length; i++) {
 	    if (tasks[i].task == currentTodo) {
 	        tasks[i].completed = !tasks[i].completed;
@@ -58,17 +70,9 @@ $('ul').on('click', 'li', function(){
 	        break;
 	    }
 	}
-
 	$(this).toggleClass('completed');
-	console.log(currentTodo);
 	updateState();
 });
-
-function removeTask (task) {
-	let index = tasks.indexOf(task);
-	tasks.splice(index,1);
-	updateStorage();
-}
 
 $('ul').on('click', 'span', function(event){
 	$(this).parent().fadeOut(250, function() {
@@ -80,6 +84,22 @@ $('ul').on('click', 'span', function(event){
 	//stop bubling
 	event.stopPropagation();
 });
+
+input.keypress(function(event){
+	if(event.which === 13) {
+		createTodo();
+	}
+});
+
+toggleInput.click(function(){
+	toggleInputFunc();
+});
+
+function removeTask (task) {
+	let index = tasks.indexOf(task);
+	tasks.splice(index,1);
+	updateStorage();
+}
 
 function saveTodo (item) {
 	let todoItem = {
@@ -98,16 +118,6 @@ function createTodo() {
 	updateState();
 	lastLiCorners();
 }
-
-input.keypress(function(event){
-	if(event.which === 13) {
-		createTodo();
-	}
-});
-
-toggleInput.click(function(){
-	toggleInputFunc();
-});
 
 function lastLiCorners() {
 	sharpBottomCorners(lastLi);
